@@ -1,1 +1,138 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ถามคำถามหน่อยนะ 🫣</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fff5f5;
+            font-family: 'Prompt', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+        }
+        .gif-box img {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #4a4a4a;
+            font-size: 24px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            height: 50px;
+        }
+        .btn {
+            padding: 12px 35px;
+            font-size: 18px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Prompt', sans-serif;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        #yes-btn {
+            background-color: #ff7675;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 118, 117, 0.4);
+        }
+        #yes-btn:hover {
+            background-color: #d63031;
+            transform: scale(1.05);
+        }
+        #no-btn {
+            background-color: #ffeaa7;
+            color: #d63031;
+            position: absolute;
+            left: 55%;
+        }
+        .success-screen {
+            display: none;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .success-screen h2 {
+            color: #ff7675;
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+        .success-screen p {
+            color: #666;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
 
+    <div class="container">
+        <!-- หน้าแรก: คำถาม -->
+        <div id="quiz-screen">
+            <div class="gif-box">
+                <!-- คุณสามารถเปลี่ยนลิงก์รูปภาพน่ารัก ๆ ตรงนี้ได้ -->
+                <img src="https://giphy.com" alt="cute cat">
+            </div>
+            <h1 id="question">เธอคนนี้มีหวานใจหรือยังครับ?<br>ขอจีบสาวคนนี้ได้ไหมนะ 😳</h1>
+            <div class="btn-group">
+                <button class="btn" id="yes-btn" onclick="sayYes()">ได้ดิ</button>
+                <button class="btn" id="no-btn" onmouseover="moveButton()" onclick="moveButton()">ไม่ได้ หรอก</button>
+            </div>
+        </div>
+
+        <!-- หน้าสอง: หลังกดตกลง -->
+        <div id="success-screen" class="success-screen">
+            <div class="gif-box">
+                <img src="https://giphy.com" alt="happy cat">
+            </div>
+            <h2>เย้! ดีใจจังเลย 🥰</h2>
+            <p>งั้นตั้งแต่วันนี้ไป เค้าขอเดินหน้าจีบสาวคนนี้อย่างเป็นทางการเลยนะ! 💖</p>
+        </div>
+    </div>
+
+    <script>
+        function moveButton() {
+            const noBtn = document.getElementById('no-btn');
+            
+            // สุ่มตำแหน่งใหม่รอบ ๆ หน้าจอไม่ให้ปุ่มหลุดขอบ
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40);
+            
+            // เปลี่ยนสไตล์ปุ่มให้เป็น fixed เพื่อให้วิ่งไปได้ทั่วจอ
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        function sayYes() {
+            document.getElementById('quiz-screen').style.display = 'none';
+            document.getElementById('success-screen').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
